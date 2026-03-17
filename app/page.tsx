@@ -3,13 +3,13 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import type { LucideIcon } from "lucide-react";
 import {
   Calendar, Search, Shield, Clock, Star, ArrowRight,
   Phone, MapPin, Heart, Users, Award, Activity,
   HeartPulse, Brain, Bone, Baby, Leaf, Eye,
   Smile, FlaskConical, Pill, Flower2, Stethoscope,
   Scissors, Ear, Sparkles, Hospital,
-  type LucideIcon,
 } from "lucide-react";
 import { DOCTORS, ARTICLES, REVIEWS, SPECIALTIES } from "@/lib/data";
 import { DoctorCard } from "@/components/DoctorCard";
