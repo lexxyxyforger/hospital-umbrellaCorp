@@ -1,47 +1,51 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
   Calendar, Search, Shield, Clock, Star, ArrowRight,
-  Phone, MapPin, ChevronRight, Play, Heart, Users, Award, Activity
+  Phone, MapPin, Heart, Users, Award, Activity,
+  HeartPulse, Brain, Bone, Baby, Leaf, Eye,
+  Smile, FlaskConical, Pill, Flower2, Stethoscope,
+  Scissors, Ear, Sparkles, Hospital,
+  type LucideIcon,
 } from "lucide-react";
 import { DOCTORS, ARTICLES, REVIEWS, SPECIALTIES } from "@/lib/data";
 import { DoctorCard } from "@/components/DoctorCard";
 import { ArticleCard } from "@/components/ArticleCard";
 
 const QUICK_SERVICES = [
-  { icon: Calendar, label: "Booking Dokter", desc: "Buat janji dengan mudah", href: "/appointment/book", color: "bg-blue-500" },
-  { icon: Clock, label: "IGD 24 Jam", desc: "Penanganan darurat segera", href: "/services/igd-24-jam", color: "bg-red-500" },
-  { icon: Shield, label: "Medical Checkup", desc: "Periksa kesehatan rutin", href: "/services/medical-checkup", color: "bg-emerald-500" },
-  { icon: Activity, label: "Vaksinasi", desc: "Jadwal vaksin lengkap", href: "/services/vaksinasi", color: "bg-violet-500" },
+  { icon: Calendar, label: "Booking Dokter", desc: "Akses rekam medis & jadwal", href: "/appointment/book", color: "bg-blue-500" },
+  { icon: Clock, label: "IGD 24 Jam", desc: "Respons darurat prioritas", href: "/services/igd-24-jam", color: "bg-red-500" },
+  { icon: Shield, label: "Medical Checkup", desc: "Protokol pemantauan rutin", href: "/services/medical-checkup", color: "bg-emerald-500" },
+  { icon: Activity, label: "Vaksinasi", desc: "Program imunisasi korporat", href: "/services/vaksinasi", color: "bg-violet-500" },
   { icon: Phone, label: "Telepon Darurat", desc: "(021) 555-1234", href: "tel:+62215551234", color: "bg-amber-500" },
-  { icon: MapPin, label: "Lokasi RS", desc: "Jakarta Selatan", href: "/contact#map", color: "bg-cyan-500" },
+  { icon: MapPin, label: "Lokasi RS", desc: "Raccoon City, Jakarta", href: "/contact#map", color: "bg-cyan-500" },
 ];
 
-const SPECIALTY_ICONS: Record<string, string> = {
-  "Kardiologi": "🫀",
-  "Neurologi": "🧠",
-  "Ortopedi": "🦴",
-  "Pediatri": "👶",
-  "Dermatologi": "🌿",
-  "Ophthalmologi": "👁️",
-  "Psikiatri": "🧘",
-  "Onkologi": "🔬",
-  "Urologi": "💊",
-  "Ginekologi": "🌸",
-  "Penyakit Dalam": "🩺",
-  "Bedah Umum": "⚕️",
-  "THT": "👂",
-  "Gigi & Mulut": "🦷",
+const SPECIALTY_ICONS: Record<string, LucideIcon> = {
+  "Kardiologi": HeartPulse,
+  "Neurologi": Brain,
+  "Ortopedi": Bone,
+  "Pediatri": Baby,
+  "Dermatologi": Leaf,
+  "Ophthalmologi": Eye,
+  "Psikiatri": Smile,
+  "Onkologi": FlaskConical,
+  "Urologi": Pill,
+  "Ginekologi": Flower2,
+  "Penyakit Dalam": Stethoscope,
+  "Bedah Umum": Scissors,
+  "THT": Ear,
+  "Gigi & Mulut": Sparkles,
 };
 
 const STATS = [
-  { value: "50+", label: "Dokter Spesialis", icon: Users },
-  { value: "15+", label: "Tahun Berpengalaman", icon: Award },
-  { value: "100k+", label: "Pasien Dilayani", icon: Heart },
-  { value: "4.9", label: "Rating Rata-rata", icon: Star },
+  { value: "50+", label: "Ilmuwan & Spesialis", icon: Users },
+  { value: "25+", label: "Tahun Riset & Operasi", icon: Award },
+  { value: "100k+", label: "Subjek Ditangani", icon: Heart },
+  { value: "4.9", label: "Indeks Kepuasan", icon: Star },
 ];
 
 export default function HomePage() {
@@ -58,9 +62,7 @@ export default function HomePage() {
 
   return (
     <div className="pt-20 lg:pt-24">
-      {/* ===== HERO ===== */}
       <section className="relative overflow-hidden gradient-hero min-h-[88vh] flex items-center">
-        {/* Background decoration */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-blue-100/60 blur-3xl" />
           <div className="absolute -bottom-20 -left-40 w-[500px] h-[500px] rounded-full bg-cyan-100/60 blur-3xl" />
@@ -69,7 +71,6 @@ export default function HomePage() {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left content */}
             <div
               className="transition-all duration-700"
               style={{
@@ -79,18 +80,18 @@ export default function HomePage() {
             >
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 text-blue-700 text-sm font-medium mb-6">
                 <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                Pelayanan 24/7 Tersedia
+                Fasilitas Umbrella Corp Beroperasi 24/7
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight mb-6" style={{ fontFamily: "var(--font-display)" }}>
-                Pelayanan{" "}
+                Solusi{" "}
                 <span className="text-gradient">Kesehatan</span>
                 <br />
-                Modern Untuk Anda
+                Kelas Korporasi
               </h1>
 
               <p className="text-lg text-slate-600 mb-8 leading-relaxed max-w-lg">
-                Konsultasi dokter spesialis dengan mudah dan cepat. Booking online, akses 50+ dokter berpengalaman, dan layanan medis terpadu.
+                Umbrella Corp menghadirkan layanan medis berstandar tinggi dengan teknologi mutakhir. Akses 50+ spesialis terlatih, sistem booking terintegrasi, dan protokol kesehatan terpadu.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 mb-10">
@@ -110,13 +111,12 @@ export default function HomePage() {
                 </Link>
               </div>
 
-              {/* Search bar */}
               <div className="flex gap-2 bg-white rounded-2xl p-2 shadow-xl border border-slate-100 max-w-md">
                 <div className="flex-1 flex items-center gap-2 px-3">
                   <Search size={18} className="text-slate-400 shrink-0" />
                   <input
                     type="text"
-                    placeholder="Cari dokter atau layanan..."
+                    placeholder="Cari spesialis atau layanan Umbrella Corp..."
                     className="w-full text-sm text-slate-800 bg-transparent outline-none placeholder-slate-400"
                   />
                 </div>
@@ -125,7 +125,6 @@ export default function HomePage() {
                 </button>
               </div>
 
-              {/* Highlights */}
               <div className="flex items-center gap-6 mt-6 text-sm text-slate-500">
                 <div className="flex items-center gap-1.5">
                   <div className="flex -space-x-2">
@@ -140,17 +139,16 @@ export default function HomePage() {
                       />
                     ))}
                   </div>
-                  <span>100k+ pasien puas</span>
+                  <span>100k+ subjek terlayani</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <Star size={14} className="fill-amber-400 text-amber-400" />
                   <span className="font-semibold text-slate-700">4.9</span>
-                  <span>rating</span>
+                  <span>indeks kepuasan</span>
                 </div>
               </div>
             </div>
 
-            {/* Right: Image + floating cards */}
             <div
               className="relative hidden lg:block"
               style={{
@@ -161,30 +159,28 @@ export default function HomePage() {
               }}
             >
               <div className="relative w-full h-[520px]">
-                {/* Main image */}
                 <div className="absolute right-0 top-0 w-[420px] h-[480px] rounded-3xl overflow-hidden shadow-2xl">
                   <Image
                     src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=900&q=90"
-                    alt="Dokter RS Umbrella Corp"
+                    alt="Fasilitas Medis Umbrella Corp"
                     fill
                     className="object-cover"
                     priority
                   />
                 </div>
 
-                {/* Floating card: doctor */}
                 <div className="absolute left-0 top-16 bg-white rounded-2xl p-4 shadow-xl border border-slate-100 w-56">
                   <div className="flex items-center gap-3 mb-2">
                     <Image
                       src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=100&q=80"
-                      alt="Dr. Leon Kennedy"
+                      alt="dr. Albert Wesker"
                       width={44}
                       height={44}
                       className="rounded-full"
                     />
                     <div>
-                      <div className="text-sm font-semibold text-slate-900">dr. Leon Kennedy.</div>
-                      <div className="text-xs text-slate-500">Kardiologi</div>
+                      <div className="text-sm font-semibold text-slate-900">dr. Albert Wesker</div>
+                      <div className="text-xs text-slate-500">Virologi & Rekayasa Genetik</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-1">
@@ -202,9 +198,8 @@ export default function HomePage() {
                   </Link>
                 </div>
 
-                {/* Floating card: stats */}
                 <div className="absolute left-4 bottom-4 bg-white rounded-2xl p-4 shadow-xl border border-slate-100">
-                  <div className="text-xs text-slate-500 mb-1">Pasien Hari Ini</div>
+                  <div className="text-xs text-slate-500 mb-1">Subjek Ditangani Hari Ini</div>
                   <div className="text-2xl font-bold text-slate-900">128</div>
                   <div className="flex items-center gap-1 mt-1 text-xs text-emerald-600">
                     <Activity size={12} />
@@ -212,11 +207,10 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                {/* Floating card: IGD */}
                 <div className="absolute right-4 bottom-16 bg-red-500 text-white rounded-2xl p-4 shadow-xl">
                   <div className="flex items-center gap-2 mb-1">
                     <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
-                    <span className="text-xs font-medium">IGD 24 Jam</span>
+                    <span className="text-xs font-medium">Darurat Umbrella 24 Jam</span>
                   </div>
                   <div className="text-lg font-bold">(021) 555-1234</div>
                 </div>
@@ -226,7 +220,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== STATS ===== */}
       <section className="bg-white border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
@@ -245,16 +238,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== QUICK SERVICES ===== */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <span className="text-sm font-semibold text-blue-600 uppercase tracking-wider">Layanan Kami</span>
+            <span className="text-sm font-semibold text-blue-600 uppercase tracking-wider">Divisi Layanan</span>
             <h2 className="text-3xl font-bold text-slate-900 mt-2" style={{ fontFamily: "var(--font-display)" }}>
-              Layanan Cepat
+              Akses Cepat Umbrella Corp
             </h2>
             <p className="text-slate-500 mt-3 max-w-md mx-auto">
-              Akses layanan kesehatan yang Anda butuhkan dengan cepat dan mudah
+              Navigasi seluruh fasilitas dan layanan medis Umbrella Corp dengan efisien
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -275,17 +267,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== FEATURED DOCTORS ===== */}
       <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-end justify-between mb-12">
             <div>
-              <span className="text-sm font-semibold text-blue-600 uppercase tracking-wider">Tim Medis</span>
+              <span className="text-sm font-semibold text-blue-600 uppercase tracking-wider">Tim Riset & Medis</span>
               <h2 className="text-3xl font-bold text-slate-900 mt-2" style={{ fontFamily: "var(--font-display)" }}>
-                Dokter Unggulan
+                Spesialis Unggulan Umbrella
               </h2>
               <p className="text-slate-500 mt-3 max-w-lg">
-                Dokter spesialis berpengalaman dengan rating tertinggi dari ribuan pasien
+                Para ahli terpilih Umbrella Corp dengan rekam jejak dan penilaian tertinggi dari ribuan pasien
               </p>
             </div>
             <Link
@@ -307,50 +298,53 @@ export default function HomePage() {
               href="/doctors"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-slate-200 text-slate-700 font-medium hover:border-blue-300 hover:text-blue-600 transition-all"
             >
-              Lihat Semua Dokter <ArrowRight size={16} />
+              Lihat Semua Spesialis <ArrowRight size={16} />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ===== SPECIALTIES ===== */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <span className="text-sm font-semibold text-blue-600 uppercase tracking-wider">Spesialisasi</span>
+            <span className="text-sm font-semibold text-blue-600 uppercase tracking-wider">Divisi Spesialisasi</span>
             <h2 className="text-3xl font-bold text-slate-900 mt-2" style={{ fontFamily: "var(--font-display)" }}>
-              Layanan Medis Kami
+              Bidang Riset & Layanan Medis
             </h2>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-4">
-            {SPECIALTIES.slice(1).map((specialty) => (
-              <Link
-                key={specialty}
-                href={`/doctors?specialty=${encodeURIComponent(specialty)}`}
-                className="flex flex-col items-center gap-3 p-4 rounded-2xl border border-slate-100 hover:border-blue-200 hover:bg-blue-50 transition-all group"
-              >
-                <span className="text-3xl">{SPECIALTY_ICONS[specialty] || "🏥"}</span>
-                <span className="text-xs font-medium text-slate-600 text-center leading-tight group-hover:text-blue-600 transition-colors">
-                  {specialty}
-                </span>
-              </Link>
-            ))}
+            {SPECIALTIES.slice(1).map((specialty) => {
+              const Icon = SPECIALTY_ICONS[specialty] ?? Hospital;
+              return (
+                <Link
+                  key={specialty}
+                  href={`/doctors?specialty=${encodeURIComponent(specialty)}`}
+                  className="flex flex-col items-center gap-3 p-4 rounded-2xl border border-slate-100 hover:border-blue-200 hover:bg-blue-50 transition-all group"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
+                    <Icon size={20} className="text-blue-600" />
+                  </div>
+                  <span className="text-xs font-medium text-slate-600 text-center leading-tight group-hover:text-blue-600 transition-colors">
+                    {specialty}
+                  </span>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* ===== ARTICLES ===== */}
       <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-end justify-between mb-12">
             <div>
-              <span className="text-sm font-semibold text-blue-600 uppercase tracking-wider">Edukasi</span>
+              <span className="text-sm font-semibold text-blue-600 uppercase tracking-wider">Edukasi & Riset</span>
               <h2 className="text-3xl font-bold text-slate-900 mt-2" style={{ fontFamily: "var(--font-display)" }}>
-                Artikel Kesehatan
+                Publikasi Ilmiah Umbrella
               </h2>
             </div>
             <Link href="/blog" className="hidden md:flex items-center gap-2 text-blue-600 font-medium hover:gap-3 transition-all">
-              Semua Artikel <ArrowRight size={16} />
+              Semua Publikasi <ArrowRight size={16} />
             </Link>
           </div>
 
@@ -367,18 +361,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== TESTIMONIALS ===== */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <span className="text-sm font-semibold text-blue-600 uppercase tracking-wider">Testimoni</span>
             <h2 className="text-3xl font-bold text-slate-900 mt-2" style={{ fontFamily: "var(--font-display)" }}>
-              Kata Pasien Kami
+              Laporan Kepuasan Pasien
             </h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {REVIEWS.map((review, idx) => (
+            {REVIEWS.map((review) => (
               <div
                 key={review.id}
                 className="bg-white rounded-2xl p-6 border border-slate-100 card-shadow hover:card-shadow-hover transition-all duration-300"
@@ -403,7 +396,7 @@ export default function HomePage() {
                     <div className="text-sm font-semibold text-slate-800">{review.patientName}</div>
                     {review.isVerified && (
                       <span className="text-xs text-emerald-600 flex items-center gap-1">
-                        ✓ Terverifikasi
+                        ✓ Pasien Terverifikasi
                       </span>
                     )}
                   </div>
@@ -414,7 +407,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== CTA ===== */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative rounded-3xl gradient-primary overflow-hidden p-12 text-center">
@@ -424,24 +416,24 @@ export default function HomePage() {
             </div>
             <div className="relative">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4" style={{ fontFamily: "var(--font-display)" }}>
-                Jadwalkan Konsultasi Sekarang
+                Jadwalkan Konsultasi dengan Umbrella Corp
               </h2>
               <p className="text-blue-100 text-lg mb-8 max-w-xl mx-auto">
-                Lebih dari 50 dokter spesialis siap membantu kesehatan Anda dan keluarga
+                Lebih dari 50 spesialis Umbrella Corp siap memberikan solusi kesehatan terbaik untuk Anda dan keluarga
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
                   href="/appointment/book"
                   className="px-8 py-3.5 rounded-xl bg-white text-blue-600 font-semibold hover:bg-blue-50 transition-colors shadow-lg"
                 >
-                  Buat Janji Dokter
+                  Buat Janji Sekarang
                 </Link>
                 <Link
                   href="/contact"
                   className="px-8 py-3.5 rounded-xl border-2 border-white/50 text-white font-semibold hover:bg-white/10 transition-colors flex items-center gap-2 justify-center"
                 >
                   <Phone size={18} />
-                  Hubungi Kami
+                  Hubungi Umbrella Corp
                 </Link>
               </div>
             </div>

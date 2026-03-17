@@ -19,12 +19,12 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "RS Sehat Prima — Pelayanan Kesehatan Modern",
-  description: "Rumah sakit modern dengan layanan kesehatan terpadu. Konsultasi dokter spesialis, booking online, dan layanan medis terbaik.",
-  keywords: ["rumah sakit", "dokter", "kesehatan", "booking dokter", "konsultasi"],
+  title: "RS Umbrella Corp — Layanan Medis Kelas Korporasi",
+  description: "Fasilitas medis terpadu milik Umbrella Corporation. Akses spesialis terlatih, booking online, protokol kesehatan berstandar tinggi, dan riset medis mutakhir.",
+  keywords: ["umbrella corp", "rumah sakit", "dokter spesialis", "kesehatan korporasi", "booking dokter", "raccoon city"],
   openGraph: {
-    title: "RS Sehat Prima",
-    description: "Pelayanan Kesehatan Modern Untuk Anda",
+    title: "RS Umbrella Corp",
+    description: "Layanan Medis Kelas Korporasi — Umbrella Corporation",
     type: "website",
   },
 };
