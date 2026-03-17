@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { MessageCircle, X, Send, Phone, Clock } from "lucide-react";
+import { MessageCircle, X, Send, Phone } from "lucide-react";
 
 type Message = {
   id: string;
@@ -19,16 +19,16 @@ const QUICK_REPLIES = [
 ];
 
 const AUTO_REPLIES: Record<string, string> = {
-  "booking": "Untuk booking dokter, klik tombol 'Buat Janji' di menu utama atau kunjungi halaman /appointment/book. Pilih dokter, tanggal, dan jam yang tersedia. 😊",
-  "jadwal": "Jam operasional kami: Senin–Jumat 07:00–21:00, Sabtu–Minggu 08:00–18:00. IGD buka 24 jam setiap hari! 🏥",
-  "jam": "Jam operasional kami: Senin–Jumat 07:00–21:00, Sabtu–Minggu 08:00–18:00. IGD buka 24 jam setiap hari! 🏥",
-  "tarif": "Tarif konsultasi mulai dari Rp 150.000 – Rp 300.000 tergantung spesialis. Kami juga menerima BPJS Kesehatan. 💰",
-  "harga": "Tarif konsultasi mulai dari Rp 150.000 – Rp 300.000 tergantung spesialis. Kami juga menerima BPJS Kesehatan. 💰",
-  "lokasi": "RS Sehat Prima berlokasi di Jl. Kesehatan No. 1, Jakarta Selatan. Dekat Halte TransJakarta & Stasiun MRT Blok M. 📍",
-  "igd": "IGD kami buka 24 jam dengan dokter jaga dan spesialis on-call. Hubungi (021) 555-1234 untuk kondisi darurat. 🚨",
-  "darurat": "Untuk kondisi darurat, segera hubungi IGD kami di (021) 555-1234 atau datang langsung. Kami siaga 24 jam! 🚑",
-  "bpjs": "Ya, kami menerima BPJS Kesehatan. Untuk rawat jalan, harap membawa surat rujukan dari faskes pertama (kecuali IGD). 📋",
-  "ambulans": "Layanan ambulans tersedia 24 jam. Hubungi (021) 555-1234 untuk pemesanan. Respons < 15 menit untuk area Jakarta. 🚑",
+  "booking": "Untuk booking spesialis Umbrella Corp, klik 'Buat Janji' di menu utama atau kunjungi /appointment/book. Pilih dokter, tanggal, dan jam yang tersedia.",
+  "jadwal": "Jam operasional RS Umbrella Corp: Senin–Jumat 07:00–21:00, Sabtu–Minggu 08:00–18:00. Unit Darurat Umbrella beroperasi 24 jam penuh.",
+  "jam": "Jam operasional RS Umbrella Corp: Senin–Jumat 07:00–21:00, Sabtu–Minggu 08:00–18:00. Unit Darurat Umbrella beroperasi 24 jam penuh.",
+  "tarif": "Tarif konsultasi spesialis Umbrella Corp mulai Rp 200.000 – Rp 500.000 tergantung divisi. Kami menerima BPJS Kesehatan dan asuransi swasta.",
+  "harga": "Tarif konsultasi spesialis Umbrella Corp mulai Rp 200.000 – Rp 500.000 tergantung divisi. Kami menerima BPJS Kesehatan dan asuransi swasta.",
+  "lokasi": "RS Umbrella Corp berlokasi di Jl. Raccoon City No. 1, Jakarta Selatan. Dekat Halte TransJakarta & Stasiun MRT Blok M.",
+  "igd": "Unit Darurat Umbrella Corp buka 24 jam dengan dokter jaga dan spesialis on-call. Hubungi (021) 555-1234 untuk kondisi darurat.",
+  "darurat": "Untuk kondisi darurat, segera hubungi Unit Darurat Umbrella Corp di (021) 555-1234 atau datang langsung. Kami siaga 24 jam.",
+  "bpjs": "Ya, RS Umbrella Corp menerima BPJS Kesehatan. Untuk rawat jalan, harap membawa surat rujukan dari faskes pertama (kecuali IGD).",
+  "ambulans": "Layanan ambulans Umbrella Corp tersedia 24 jam. Hubungi (021) 555-1234. Respons kurang dari 15 menit untuk area Jakarta.",
 };
 
 function getAutoReply(text: string): string {
@@ -36,7 +36,7 @@ function getAutoReply(text: string): string {
   for (const [key, reply] of Object.entries(AUTO_REPLIES)) {
     if (lower.includes(key)) return reply;
   }
-  return "Terima kasih atas pertanyaan Anda! Tim customer service kami sedang online dan akan segera membantu. Atau hubungi langsung di (021) 555-1234. 😊";
+  return "Terima kasih telah menghubungi RS Umbrella Corp. Tim operasional kami sedang online dan akan segera membantu Anda. Atau hubungi langsung di (021) 555-1234.";
 }
 
 function now() {
@@ -49,7 +49,7 @@ export function ChatWidget() {
     {
       id: "1",
       from: "agent",
-      text: "Halo! 👋 Selamat datang di RS Sehat Prima. Ada yang bisa kami bantu?",
+      text: "Selamat datang di RS Umbrella Corp. Ada yang bisa kami bantu hari ini?",
       time: now(),
     },
   ]);
@@ -81,20 +81,22 @@ export function ChatWidget() {
 
   return (
     <>
-      {/* Chat window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-4 sm:right-6 z-50 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden"
-          style={{ height: "460px" }}>
-          {/* Header */}
-          <div className="gradient-primary p-4 flex items-center gap-3">
+        <div
+          className="fixed bottom-24 right-4 sm:right-6 z-50 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden"
+          style={{ height: "460px" }}
+        >
+          <div className="bg-red-600 p-4 flex items-center gap-3">
             <div className="relative">
-              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white font-bold text-sm">CS</div>
-              <div className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-400 border-2 border-white" />
+              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center font-bold text-sm text-white">
+                UC
+              </div>
+              <div className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-400 border-2 border-red-600" />
             </div>
             <div className="flex-1">
-              <div className="text-white font-semibold text-sm">Customer Service</div>
-              <div className="text-blue-200 text-xs flex items-center gap-1">
-                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> Online sekarang
+              <div className="text-white font-semibold text-sm">Umbrella Corp Support</div>
+              <div className="text-red-200 text-xs flex items-center gap-1">
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> Operasional Online
               </div>
             </div>
             <div className="flex gap-1">
@@ -107,17 +109,16 @@ export function ChatWidget() {
             </div>
           </div>
 
-          {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50">
             {messages.map((msg) => (
               <div key={msg.id} className={`flex ${msg.from === "user" ? "justify-end" : "justify-start"}`}>
                 <div className={`max-w-[75%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed ${
                   msg.from === "user"
-                    ? "gradient-primary text-white rounded-br-sm"
+                    ? "bg-red-600 text-white rounded-br-sm"
                     : "bg-white text-slate-800 border border-slate-100 shadow-sm rounded-bl-sm"
                 }`}>
                   {msg.text}
-                  <div className={`text-xs mt-1 ${msg.from === "user" ? "text-blue-200" : "text-slate-400"}`}>
+                  <div className={`text-xs mt-1 ${msg.from === "user" ? "text-red-200" : "text-slate-400"}`}>
                     {msg.time}
                   </div>
                 </div>
@@ -136,32 +137,30 @@ export function ChatWidget() {
             <div ref={bottomRef} />
           </div>
 
-          {/* Quick replies */}
           <div className="px-3 py-2 bg-white border-t border-slate-100 flex gap-1.5 overflow-x-auto">
             {QUICK_REPLIES.map((qr) => (
               <button
                 key={qr}
                 onClick={() => sendMessage(qr)}
-                className="shrink-0 px-2.5 py-1 rounded-full border border-blue-200 text-blue-600 text-xs font-medium hover:bg-blue-50 transition-colors whitespace-nowrap"
+                className="shrink-0 px-2.5 py-1 rounded-full border border-red-200 text-red-600 text-xs font-medium hover:bg-red-50 transition-colors whitespace-nowrap"
               >
                 {qr}
               </button>
             ))}
           </div>
 
-          {/* Input */}
           <div className="p-3 bg-white border-t border-slate-100 flex gap-2">
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && sendMessage(input)}
               placeholder="Ketik pesan..."
-              className="flex-1 px-3 py-2 rounded-xl border border-slate-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 outline-none text-sm"
+              className="flex-1 px-3 py-2 rounded-xl border border-slate-200 focus:border-red-400 focus:ring-2 focus:ring-red-100 outline-none text-sm"
             />
             <button
               onClick={() => sendMessage(input)}
               disabled={!input.trim()}
-              className="w-9 h-9 rounded-xl gradient-primary text-white flex items-center justify-center disabled:opacity-50 hover:opacity-90 transition-opacity"
+              className="w-9 h-9 rounded-xl bg-red-600 text-white flex items-center justify-center disabled:opacity-50 hover:bg-red-700 transition-colors"
             >
               <Send size={15} />
             </button>
@@ -169,15 +168,14 @@ export function ChatWidget() {
         </div>
       )}
 
-      {/* Toggle button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-4 sm:right-6 z-50 w-14 h-14 rounded-full gradient-primary text-white shadow-xl hover:shadow-2xl hover:scale-110 transition-all flex items-center justify-center"
-        aria-label="Chat with us"
+        className="fixed bottom-6 right-4 sm:right-6 z-50 w-14 h-14 rounded-full bg-red-600 text-white shadow-xl hover:shadow-2xl hover:scale-110 hover:bg-red-700 transition-all flex items-center justify-center"
+        aria-label="Chat with Umbrella Corp"
       >
         {isOpen ? <X size={22} /> : <MessageCircle size={22} />}
         {!isOpen && (
-          <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full text-white text-xs flex items-center justify-center font-bold">
+          <span className="absolute -top-1 -right-1 w-4 h-4 bg-slate-900 rounded-full text-white text-xs flex items-center justify-center font-bold">
             1
           </span>
         )}
