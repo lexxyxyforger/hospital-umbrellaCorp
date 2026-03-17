@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -26,7 +26,7 @@ const POPULAR = [
   "IGD 24 Jam", "Dermatologi", "Neurologi",
 ];
 
-export default function SearchPage() {
+function SearchContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -117,7 +117,6 @@ export default function SearchPage() {
   return (
     <div className="pt-20 lg:pt-24 min-h-screen bg-slate-50">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        {/* Search bar */}
         <div className="relative mb-8">
           <Search size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
@@ -139,7 +138,6 @@ export default function SearchPage() {
           )}
         </div>
 
-        {/* No query: show recent + popular */}
         {!query && (
           <div className="space-y-8">
             {recentSearches.length > 0 && (
@@ -181,7 +179,6 @@ export default function SearchPage() {
               </div>
             </div>
 
-            {/* Quick links */}
             <div>
               <h3 className="font-semibold text-slate-800 text-sm mb-3">Jelajahi</h3>
               <div className="grid grid-cols-3 gap-3">
@@ -206,10 +203,8 @@ export default function SearchPage() {
           </div>
         )}
 
-        {/* Results */}
         {query && (
           <div>
-            {/* Filter tabs */}
             {results.length > 0 && (
               <div className="flex gap-2 mb-5 overflow-x-auto pb-1">
                 {([
@@ -289,5 +284,20 @@ export default function SearchPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={
+      <div className="pt-20 lg:pt-24 min-h-screen bg-slate-50 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-10 h-10 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin" />
+          <p className="text-slate-500 text-sm">Memuat pencarian...</p>
+        </div>
+      </div>
+    }>
+      <SearchContent />
+    </Suspense>
   );
 }
