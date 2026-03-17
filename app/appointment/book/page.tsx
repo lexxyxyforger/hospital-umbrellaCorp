@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,7 +22,7 @@ const COMPLAINT_SUGGESTIONS = [
   "Gangguan tidur",
 ];
 
-export default function BookAppointmentPage() {
+function BookAppointmentContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -53,12 +53,10 @@ export default function BookAppointmentPage() {
     if (patient) {
       setForm((prev) => ({ ...prev, name: patient.name || "", phone: patient.phone || "", email: patient.email || "" }));
     }
-    // Load draft
     const draft = getFromLS<typeof form | null>("booking_draft", null);
     if (draft) setForm(draft);
   }, [searchParams]);
 
-  // Auto-save draft
   useEffect(() => {
     if (form.complaint || form.name) {
       setToLS("booking_draft", form);
@@ -167,7 +165,6 @@ export default function BookAppointmentPage() {
   return (
     <div className="pt-20 lg:pt-24 min-h-screen bg-slate-50">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        {/* Header */}
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-slate-900" style={{ fontFamily: "var(--font-display)" }}>
             Buat Janji Dokter
@@ -175,7 +172,6 @@ export default function BookAppointmentPage() {
           <p className="text-slate-500 mt-1 text-sm">Isi form di bawah untuk membuat janji konsultasi</p>
         </div>
 
-        {/* Stepper */}
         <div className="flex items-center mb-10 overflow-x-auto pb-2">
           {STEPS.map((label, i) => (
             <div key={label} className="flex items-center shrink-0">
@@ -202,7 +198,6 @@ export default function BookAppointmentPage() {
           ))}
         </div>
 
-        {/* Step 0: Pilih Dokter */}
         {step === 0 && (
           <div className="bg-white rounded-2xl border border-slate-100 card-shadow p-6">
             <h2 className="font-semibold text-slate-900 mb-4">Pilih Dokter</h2>
@@ -239,10 +234,8 @@ export default function BookAppointmentPage() {
           </div>
         )}
 
-        {/* Step 1: Pilih Jadwal */}
         {step === 1 && selectedDoctor && (
           <div className="space-y-4">
-            {/* Selected doctor */}
             <div className="bg-white rounded-2xl border border-slate-100 card-shadow p-4 flex items-center gap-3">
               <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0">
                 <Image src={selectedDoctor.photo} alt={selectedDoctor.name} fill className="object-cover" />
@@ -256,7 +249,6 @@ export default function BookAppointmentPage() {
               </button>
             </div>
 
-            {/* Date */}
             <div className="bg-white rounded-2xl border border-slate-100 card-shadow p-6">
               <h3 className="font-semibold text-slate-900 mb-4 flex items-center gap-2">
                 <Calendar size={18} className="text-blue-600" /> Pilih Tanggal
@@ -284,7 +276,6 @@ export default function BookAppointmentPage() {
               </div>
             </div>
 
-            {/* Time */}
             {selectedDate && (
               <div className="bg-white rounded-2xl border border-slate-100 card-shadow p-6">
                 <h3 className="font-semibold text-slate-900 mb-4 flex items-center gap-2">
@@ -323,7 +314,6 @@ export default function BookAppointmentPage() {
           </div>
         )}
 
-        {/* Step 2: Data Pasien */}
         {step === 2 && (
           <div className="bg-white rounded-2xl border border-slate-100 card-shadow p-6 space-y-4">
             <h2 className="font-semibold text-slate-900 flex items-center gap-2">
@@ -426,7 +416,6 @@ export default function BookAppointmentPage() {
           </div>
         )}
 
-        {/* Step 3: Konfirmasi */}
         {step === 3 && selectedDoctor && (
           <div className="space-y-4">
             <div className="bg-white rounded-2xl border border-slate-100 card-shadow p-6">
@@ -484,5 +473,20 @@ export default function BookAppointmentPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function BookAppointmentPage() {
+  return (
+    <Suspense fallback={
+      <div className="pt-20 lg:pt-24 min-h-screen bg-slate-50 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-10 h-10 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin" />
+          <p className="text-slate-500 text-sm">Memuat halaman...</p>
+        </div>
+      </div>
+    }>
+      <BookAppointmentContent />
+    </Suspense>
   );
 }
