@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Star, Heart, Calendar, Clock, BadgeCheck } from "lucide-react";
@@ -12,12 +12,10 @@ interface DoctorCardProps {
 }
 
 export function DoctorCard({ doctor, variant = "grid" }: DoctorCardProps) {
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  useEffect(() => {
+  const [isFavorite, setIsFavorite] = useState<boolean>(() => {
     const favs = getFromLS<string[]>(LS_KEYS.FAVORITES, []);
-    setIsFavorite(favs.includes(doctor.id));
-  }, [doctor.id]);
+    return favs.includes(doctor.id);
+  });
 
   const toggleFavorite = (e: React.MouseEvent) => {
     e.preventDefault();
